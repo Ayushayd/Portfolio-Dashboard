@@ -7,13 +7,23 @@ import { Link, useNavigate } from "react-router-dom";
 import { clearAllUserErrors, login } from "@/store/slices/userSlice";
 import { toast } from "react-toastify";
 import SpecialLoadingButton from "./sub-components/SpecialLoadingButton";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  //for password show
+  const [showPassword, setShowPassword] = useState(false);
+
   const { loading, isAuthenticated, error } = useSelector(
     (state) => state.user
   );
+
+  //toggle password visibility
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const dispatch = useDispatch();
   const navigateTo = useNavigate();
@@ -63,12 +73,37 @@ const Login = () => {
                   Forgot your password?
                 </Link>
               </div>
-              <Input
+              {/* <Input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-              />
+              /> */}
+              <div style={{ position: "relative", display: "flex" }}>
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Your Password"
+                  style={{ paddingRight: "60px" }}
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  style={{
+                    position: "absolute",
+                    right: "10px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    cursor: "pointer",
+                    border: "none",
+                    background: "none",
+                  }}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
             </div>
             {loading ? (
               <SpecialLoadingButton content={"Loggin In"} />
