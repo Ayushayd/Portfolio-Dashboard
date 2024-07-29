@@ -1,12 +1,5 @@
 import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
   Tooltip,
   TooltipContent,
@@ -43,20 +36,21 @@ const HomePage = () => {
   const [active, setActive] = useState("Dashboard");
   const { isAuthenticated, error, user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const navigateTo = useNavigate();
+
   const handleLogout = () => {
     dispatch(logout());
     toast.success("Logged Out!");
   };
-  const navigateTo = useNavigate();
   useEffect(() => {
     if (error) {
       toast.error(error);
       dispatch(clearAllUserErrors());
     }
     if (!isAuthenticated) {
-      navigateTo("/login");
+      navigateTo(`/login`);
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, navigateTo]);
 
   return (
     <>

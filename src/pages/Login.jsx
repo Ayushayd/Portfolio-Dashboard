@@ -86,7 +86,7 @@ const Login = () => {
       </div>
       <div className="hidden bg-muted lg:block">
         <img
-          src="../public/images/login.png"
+          src="/images/login.png"
           alt="Image"
           className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
         />

@@ -88,7 +88,7 @@ const ResetPassword = () => {
         </div>
         <div className="hidden bg-muted lg:block">
           <img
-            src="../public/images/reset.png"
+            src="/images/reset.png"
             alt="Image"
             className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
           />

@@ -85,7 +85,7 @@ const ForgotPassword = () => {
         </div>
         <div className="hidden bg-muted lg:block">
           <img
-            src="../public/images/forgot.png"
+            src="/images/forgot.png"
             alt="Image"
             className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
           />
