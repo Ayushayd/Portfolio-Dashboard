@@ -1,3 +1,4 @@
+import { backendUrl } from "@/BackendUrl.js";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -18,7 +19,7 @@ const ViewProjects = () => {
   useEffect(() => {
     const getProject = async () => {
       await axios
-        .get(`http://localhost:4000/api/v1/project/get/${id}`, {
+        .get(`${backendUrl}/api/v1/project/get/${id}`, {
           withCredentials: true,
         })
         .then((res) => {

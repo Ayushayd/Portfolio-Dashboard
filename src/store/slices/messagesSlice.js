@@ -1,3 +1,4 @@
+import { backendUrl } from "@/BackendUrl.js";
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -59,10 +60,9 @@ const messageSlice = createSlice({
 export const getAllMessages = () => async (dispatch) => {
   dispatch(messageSlice.actions.getAllMessagesRequest());
   try {
-    const response = await axios.get(
-      "http://localhost:4000/api/v1/message/getAll",
-      { withCredentials: true }
-    );
+    const response = await axios.get(`${backendUrl}/api/v1/message/getAll`, {
+      withCredentials: true,
+    });
     dispatch(
       messageSlice.actions.getAllMessagesSuccess(response.data.messages)
     );
@@ -78,8 +78,10 @@ export const deleteMessage = (id) => async (dispatch) => {
   dispatch(messageSlice.actions.deleteMessageRequest());
   try {
     const { data } = await axios.delete(
-      `http://localhost:4000/api/v1/message/delete/${id}`,
-      { withCredentials: true }
+      `${backendUrl}/api/v1/message/delete/${id}`,
+      {
+        withCredentials: true,
+      }
     );
     dispatch(messageSlice.actions.deleteMessageSuccess(data.message));
     dispatch(messageSlice.actions.clearAllErrors());

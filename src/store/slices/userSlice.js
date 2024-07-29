@@ -1,3 +1,4 @@
+import { backendUrl } from "@/BackendUrl.js";
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -107,25 +108,6 @@ const userSlice = createSlice({
       state.error = action.payload;
     },
 
-    updateProfileRequest(state, action) {
-      state.loading = true;
-      state.isUpdated = false;
-      state.message = null;
-      state.error = null;
-    },
-    updateProfileSuccess(state, action) {
-      state.loading = false;
-      state.isUpdated = true;
-      state.message = action.payload;
-      state.error = null;
-    },
-    updateProfileFailed(state, action) {
-      state.loading = false;
-      state.isUpdated = false;
-      state.message = null;
-      state.error = action.payload;
-    },
-
     updateProfileResetAfterUpdate(state, action) {
       state.error = null;
       state.isUpdated = false;
@@ -143,7 +125,7 @@ export const login = (email, password) => async (dispatch) => {
   dispatch(userSlice.actions.loginRequest());
   try {
     const { data } = await axios.post(
-      "http://localhost:4000/api/v1/user/login",
+      `${backendUrl}/api/v1/user/login`,
       { email, password },
       {
         withCredentials: true,
@@ -162,7 +144,7 @@ export const login = (email, password) => async (dispatch) => {
 export const getUser = () => async (dispatch) => {
   dispatch(userSlice.actions.loadUserRequest());
   try {
-    const { data } = await axios.get("http://localhost:4000/api/v1/user/me", {
+    const { data } = await axios.get(`${backendUrl}/api/v1/user/me`, {
       withCredentials: true,
     });
     dispatch(userSlice.actions.loadUserSuccess(data.user));
@@ -174,12 +156,9 @@ export const getUser = () => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
   try {
-    const { data } = await axios.get(
-      "http://localhost:4000/api/v1/user/logout",
-      {
-        withCredentials: true,
-      }
-    );
+    const { data } = await axios.get(`${backendUrl}/api/v1/user/logout`, {
+      withCredentials: true,
+    });
     dispatch(userSlice.actions.logoutSuccess(data.message));
     dispatch(userSlice.actions.clearAllErrors());
   } catch (error) {
@@ -192,7 +171,7 @@ export const updatePassword =
     dispatch(userSlice.actions.updatePasswordRequest());
     try {
       const { data } = await axios.put(
-        "http://localhost:4000/api/v1/user/update/password",
+        `${backendUrl}/api/v1/user/update/password`,
         { currentPassword, newPassword, confirmPassword },
         {
           withCredentials: true,
@@ -214,7 +193,7 @@ export const updateProfile = (newData) => async (dispatch) => {
   dispatch(userSlice.actions.updateProfileRequest());
   try {
     const { data } = await axios.put(
-      "http://localhost:4000/api/v1/user/update/me",
+      `${backendUrl}/api/v1/user/update/me`,
       newData,
       {
         withCredentials: true,

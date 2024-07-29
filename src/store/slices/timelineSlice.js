@@ -1,3 +1,4 @@
+import { backendUrl } from "@/BackendUrl.js";
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -78,10 +79,9 @@ const timelineSlice = createSlice({
 export const getAllTimeline = () => async (dispatch) => {
   dispatch(timelineSlice.actions.getAllTimelineRequest());
   try {
-    const response = await axios.get(
-      "http://localhost:4000/api/v1/timeline/getAll",
-      { withCredentials: true }
-    );
+    const response = await axios.get(`${backendUrl}/api/v1/timeline/getAll`, {
+      withCredentials: true,
+    });
     dispatch(
       timelineSlice.actions.getAllTimelineSuccess(response.data.timelines)
     );
@@ -97,8 +97,10 @@ export const deleteTimeline = (id) => async (dispatch) => {
   dispatch(timelineSlice.actions.deleteTimelineRequest());
   try {
     const { data } = await axios.delete(
-      `http://localhost:4000/api/v1/timeline/delete/${id}`,
-      { withCredentials: true }
+      `${backendUrl}/api/v1/timeline/delete/${id}`,
+      {
+        withCredentials: true,
+      }
     );
     dispatch(timelineSlice.actions.deleteTimelineSuccess(data.message));
     dispatch(timelineSlice.actions.clearAllErrors());
@@ -113,7 +115,7 @@ export const addNewTimeline = (timelineData) => async (dispatch) => {
   dispatch(timelineSlice.actions.addTimelineRequest());
   try {
     const { data } = await axios.post(
-      `http://localhost:4000/api/v1/timeline/add`,
+      `${backendUrl}/api/v1/timeline/add`,
       timelineData,
       {
         withCredentials: true,

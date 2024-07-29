@@ -20,6 +20,7 @@ import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import SpecialLoadingButton from "./sub-components/SpecialLoadingButton";
 import { Button } from "@/components/ui/button";
+import { backendUrl } from "@/BackendUrl.js";
 
 const UpdateProjects = () => {
   const [title, setTitle] = useState("");
@@ -50,7 +51,7 @@ const UpdateProjects = () => {
   useEffect(() => {
     const getProject = async () => {
       await axios
-        .get(`http://localhost:4000/api/v1/project/get/${id}`, {
+        .get(`${backendUrl}/api/v1/project/get/${id}`, {
           withCredentials: true,
         })
         .then((res) => {
